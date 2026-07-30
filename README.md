@@ -1,67 +1,67 @@
 # offsec-agent
 
-Framework modular de **AI-assisted security testing** para uso autorizado com OpenCode, Codex e servidores MCP, incluindo Burp Suite MCP.
+A modular **AI-assisted security testing** framework for authorized use with OpenCode, Codex, and MCP servers, including Burp Suite MCP.
 
-> Use somente em ativos para os quais exista autorização formal e escopo definido. O projeto não substitui revisão humana, regras de engajamento ou validação técnica.
+> Use only on assets for which formal authorization and a defined scope exist. This project does not replace human review, rules of engagement, or technical validation.
 
-## Skills incluídas
+## Included Skills
 
-- `web-api`: Web, REST, GraphQL, SOAP, WebSocket, autenticação, autorização e lógica de negócio.
-- `active-directory`: AD, Kerberos, LDAP, AD CS, trusts, ACLs e caminhos de ataque.
-- `mobile`: Android e iOS com abordagem MASVS/MASTG.
-- `llm-security`: prompt injection, RAG, agentes, ferramentas, memória e MCP.
-- `jailbreak-evals`: avaliação controlada de jailbreaks, ataque e defesa.
-- `reporting`: OWASP, CWE, CAPEC, CVSS, evidências, remediação e reteste.
-- `poc-automation`: PoCs reproduzíveis e automações seguras em Python ou Go.
+- `web-api`: Web, REST, GraphQL, SOAP, WebSocket, authentication, authorization, and business logic.
+- `active-directory`: AD, Kerberos, LDAP, AD CS, trusts, ACLs, and attack paths.
+- `mobile`: Android and iOS using a MASVS/MASTG-aligned approach.
+- `llm-security`: prompt injection, RAG, agents, tools, memory, and MCP.
+- `jailbreak-evals`: controlled jailbreak evaluation, attack, and defense.
+- `reporting`: OWASP, CWE, CAPEC, CVSS, evidence, remediation, and retesting.
+- `poc-automation`: reproducible PoCs and safe automation in Python or Go.
 
-## Uso com OpenCode
+## Using with OpenCode
 
 ```bash
 git clone git@github.com:torsh4rk/offsec-agent.git
 cd offsec-agent
-export OPENAI_API_KEY='sua-chave'
+export OPENAI_API_KEY='your-key'
 opencode mcp list
 opencode
 ```
 
-O OpenCode encontra o `AGENTS.md`, o `opencode.json` e as Skills em `.agents/skills/` ao ser iniciado na raiz do repositório.
+OpenCode discovers `AGENTS.md`, `opencode.json`, and the Skills under `.agents/skills/` when started from the repository root.
 
-## Uso com Codex
+## Using with Codex
 
 ```bash
 cd offsec-agent
 codex
 ```
 
-Use o Codex principalmente para revisão de código, criação de PoCs mínimos, parsers, automações e testes. Mantenha aprovações habilitadas e revise cada comando antes da execução.
+Use Codex primarily for code review, minimal PoC creation, parsers, automation, and testing. Keep approvals enabled and review every command before execution.
 
 ## Burp MCP
 
-A configuração padrão espera o MCP do Burp em:
+The default configuration expects the Burp MCP server at:
 
 ```text
 http://127.0.0.1:9876/
 ```
 
-Confirme o listener e a integração:
+Confirm the listener and integration:
 
 ```bash
 ss -lntp | grep 9876
 opencode mcp list
 ```
 
-## Segurança operacional
+## Operational Security
 
-O perfil padrão exige aprovação para comandos e ferramentas MCP. RCE, shell, escalada de privilégios, pivoting, extração de credenciais, persistência, força bruta, negação de serviço e ações destrutivas exigem autorização explícita e contextual.
+The default profile requires approval for commands and MCP tools. RCE, shell access, privilege escalation, pivoting, credential extraction, persistence, brute force, denial of service, and destructive actions require explicit and contextual authorization.
 
-## Próximos passos
+## Next Steps
 
-1. Criar `engagement.json` com escopo, exclusões, contas de teste e limites.
-2. Capturar tráfego inicial no Burp.
-3. Carregar a Skill correspondente ao alvo.
-4. Registrar evidências sanitizadas.
-5. Gerar findings estruturados e revisar severidade.
+1. Create `engagement.json` with scope, exclusions, test accounts, and limits.
+2. Capture initial traffic in Burp.
+3. Load the Skill that matches the target.
+4. Record sanitized evidence.
+5. Generate structured findings and review severity.
 
-## Licença
+## License
 
 MIT.
