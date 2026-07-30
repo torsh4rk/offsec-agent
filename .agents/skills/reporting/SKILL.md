@@ -30,3 +30,7 @@ compatibility: opencode,codex
 ## Quality rules
 
 Scanner output alone is not a finding. Do not inflate severity. Use root-cause CWE mappings. State uncertainty. Never publish private evidence or secrets.
+
+## Approval boundaries
+
+Do not publish, export, or commit undisclosed targets, raw credentials, tokens, personal data, private source code, or unredacted evidence. External distribution and disclosure require the engagement owner's explicit approval.
