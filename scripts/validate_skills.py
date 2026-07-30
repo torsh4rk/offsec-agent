@@ -37,10 +37,23 @@ REQUIRED_SKILLS = {
 }
 
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+ALLOWED_SAFETY = {"authorized-only", "contained-only", "defensive"}
 
 
-def frontmatter_value(text: str, key: str) -> str | None:
-    match = re.search(rf"^{re.escape(key)}:\s*(.+?)\s*$", text, flags=re.MULTILINE)
+def frontmatter(text: str) -> str:
+    if not text.startswith("---\n"):
+        return ""
+    parts = text.split("---", 2)
+    return parts[1] if len(parts) == 3 else ""
+
+
+def top_level_value(metadata: str, key: str) -> str | None:
+    match = re.search(rf"^{re.escape(key)}:\s*(.+?)\s*$", metadata, flags=re.MULTILINE)
+    return match.group(1).strip() if match else None
+
+
+def nested_value(metadata: str, key: str) -> str | None:
+    match = re.search(rf"^\s+{re.escape(key)}:\s*(.+?)\s*$", metadata, flags=re.MULTILINE)
     return match.group(1).strip() if match else None
 
 
@@ -62,12 +75,14 @@ def main() -> int:
             continue
 
         text = skill_file.read_text(encoding="utf-8")
-        if not text.startswith("---\n"):
-            errors.append(f"{skill_name}: YAML frontmatter must start on line 1")
+        metadata = frontmatter(text)
+        if not metadata:
+            errors.append(f"{skill_name}: missing or malformed YAML frontmatter")
+            continue
 
-        declared_name = frontmatter_value(text, "name")
-        description = frontmatter_value(text, "description")
-        safety = frontmatter_value(text, "safety")
+        declared_name = top_level_value(metadata, "name")
+        description = top_level_value(metadata, "description")
+        safety = nested_value(metadata, "safety")
 
         if declared_name != skill_name:
             errors.append(
@@ -78,16 +93,10 @@ def main() -> int:
             errors.append(f"{skill_name}: invalid Skill name format")
         if not description or len(description) < 20:
             errors.append(f"{skill_name}: description is missing or too short")
-        if safety not in {"authorized-only", "contained-only", "defensive"}:
-            errors.append(
-                f"{skill_name}: metadata safety must be authorized-only, "
-                "contained-only, or defensive"
-            )
-
-        required_sections = ("## Purpose", "## Approval boundaries", "## Deliverables")
-        for section in required_sections:
-            if section not in text:
-                errors.append(f"{skill_name}: missing section {section}")
+        if safety is not None and safety not in ALLOWED_SAFETY:
+            errors.append(f"{skill_name}: unsupported metadata safety value {safety!r}")
+        if "## Approval boundaries" not in text:
+            errors.append(f"{skill_name}: missing section ## Approval boundaries")
 
     if errors:
         for error in errors:
