@@ -1,0 +1,9 @@
+{
+  "engagement_id": "LAB-FINANCE-DEMO-001",
+  "environment": "local-synthetic-lab",
+  "authorization": "I_OWN_THIS_SYNTHETIC_LAB",
+  "allowed_host": "127.0.0.1",
+  "max_requests": 10,
+  "expires_at": "2030-01-01T00:00:00Z",
+  "notes": "Example authorization is valid ONLY for the bundled local demo; it is not proof of bank or broker authorization."
+}
