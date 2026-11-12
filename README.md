@@ -4,6 +4,17 @@ A modular **AI-assisted security testing** framework for authorized use with Ope
 
 > Use only on assets for which formal authorization and a defined scope exist. This project does not replace human review, rules of engagement, or technical validation.
 
+## Financial AI Red Team — OpenCode jailbreak evaluations and banking/brokerage lab
+
+**New:** [TORSh4rk Financial AI Red Team](financial-ai-redteam/) offers a model-agnostic OpenCode CLI harness for **synthetic, text-only jailbreak / prompt-injection evaluations** and a separate **localhost-only financial API security laboratory**.
+
+- Compare up to five configured OpenCode `provider/model` identifiers with six reproducible, synthetic policy-boundary probes.
+- Validate synthetic bank accounts, investment portfolios, trade orders, KYC object ownership, administrative function access, and sensitive caching using eight fixed GET requests.
+- Produce concise JSON reports; offline unit tests run without API keys, real brokerage accounts, or production targets.
+- [English guide](financial-ai-redteam/README.md) · [Guia em português](financial-ai-redteam/README.pt-BR.md)
+
+**Safety boundary:** this module is a research MVP. It cannot scan external banking domains, move funds, execute shell commands through tested LLMs, or assess real accounts. All findings need human verification and an approved engagement scope.
+
 ## Included Skills
 
 ### Discovery and assessment orchestration
