@@ -1,0 +1,9 @@
+[project]
+name = "torsh4rk-financial-ai-redteam"
+version = "0.1.0"
+description = "Synthetic jailbreak evaluation and local-only financial API security lab"
+requires-python = ">=3.11"
+license = "MIT"
+
+[project.scripts]
+financial-redteam = "financial_redteam.cli:main"
